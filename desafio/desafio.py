@@ -41,8 +41,6 @@ while True:
 
     if(admin):
 
-
-
         while True:
             opcao = input("Escolha a opção: " \
             "\n1- Adicionar nova pessoa" \
@@ -108,12 +106,9 @@ while True:
             
             #Criar PDF
             elif opcao == "5":
-                page_size = pagesizes.letter
-
-                canvas = canvas.Canvas('contatos.pdf')
-
+                page_size = pagesizes.letter #define o tamanho da pagina
+                canvas = canvas.Canvas('contatos.pdf') #Cria a tela
                 canvas.setPageSize(page_size)
-
                 textobject = canvas.beginText(inch, 10 * inch)
 
                 #---Criação do conteudo da pagina
@@ -132,8 +127,8 @@ while True:
 
                 canvas.drawText(textobject)
 
-                canvas.showPage()
-                canvas.save()
+                canvas.showPage() #finaliza a pagina atual
+                canvas.save() #salva a pagina
 
                 print("Lista salva com sucesso")
             
