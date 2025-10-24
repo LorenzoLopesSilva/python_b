@@ -88,25 +88,21 @@ def iniciar_menu():
     
 
 def iniciar_jogo():
+
+    cartas_usuario = escolha_menu()
+    print(f"Total do usuario: {cartas_usuario}")
+
+    cartas_dealer = escolha_dealer(cartas_usuario)
+    
+
+def escolha_menu():
+
     print("Cartas do Usuario: ")
     carta_1 = escolher_carta()
     carta_2 = escolher_carta()
     cartas_usuario = carta_1 + carta_2
     print(f"Total: {cartas_usuario}")
 
-    # print("\nCartas do Dealer: ")
-    # carta_dealer_1 = escolher_carta(cartas)
-    # carta_dealer_2 = escolher_carta(cartas)
-    # cartas_dealer = carta_dealer_1 + carta_dealer_2
-    # print(f"Total: {cartas_dealer}")
-
-    cartas_usuario = escolha_menu(cartas_usuario)
-    print(f"Total do usuario: {cartas_usuario}")
-
-    cartas_dealer = escolha_dealer()
-    
-
-def escolha_menu(cartas_usuario):
     while True:
         escolha = input("Deseja adicionar uma carta? (s/n): ").lower()
         if escolha == "s":
@@ -122,7 +118,7 @@ def escolha_menu(cartas_usuario):
             print("Escolha invalida")
             continue
 
-def escolha_dealer():
+def escolha_dealer(cartas_usuario):
     print("Cartas do Dealer: ")
     carta_1 = escolher_carta()
     carta_2 = escolher_carta()
@@ -130,11 +126,17 @@ def escolha_dealer():
     cartas_dealer = carta_1 + carta_2
     print(f"Total: {cartas_dealer}")
 
-    decisao_dealer()
+    while True:
+        if cartas_dealer < cartas_usuario:
+            carta = escolher_carta()
+            cartas_dealer += carta
+            print(f"Total: {cartas_dealer}")
+        else:
+            return cartas_dealer
 
-def decisao_dealer():
-    pass
-
+def estourou(total):
+    if total > 21:
+        print("Estourou")
 
 
 iniciar_jogo()
