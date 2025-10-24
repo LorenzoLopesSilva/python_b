@@ -63,70 +63,50 @@ cartas = [
  
 ]
 
-usuario_cartas_n = 0
-dealer_cartas_n = 0
+
+
 
 def iniciar_menu():
-    escolha = int(input("Escolha uma opção: " \
-    "\n1- Iniciar Jogo" \
-    "\n2- Sair \n"))
+    escolha_iniciar = int(input("Digite sua escolha: " \
+    "\n 1- Iniciar" \
+    "\n 2- Sair" \
+    "\n"))
 
-    if escolha == 1:
+    if escolha_iniciar == 1:
         iniciar_jogo()
-    elif escolha == 2:
+    elif escolha_iniciar == 2:
         pass
     else:
         print("Escolha invalida")
         iniciar_menu()
-
-def iniciar_jogo():
-    print("Cartas do Usuario: ")
-    carta1_usuario = escolher_carta(cartas)
-    carta2_usuario = escolher_carta(cartas)
-
-    soma_inicial_usuario = carta1_usuario + carta2_usuario
-    mostrar_cartas_usuario(soma_inicial_usuario)
-
-    print("\nCartas do Dealer:")
-    carta1_dealer = escolher_carta(cartas)
-    carta2_dealer = escolher_carta(cartas)
-
-    soma_inicial_dealer = carta1_dealer + carta2_dealer
-    mostrar_cartas_dealer(soma_inicial_dealer)
-
-    menu_escolha()
-
     
 def escolher_carta(cartas):
-    carta_escolhida = random.choice(cartas)
-    carta = carta_escolhida[0]
-    valor_carta = carta_escolhida[1]
-    print(carta)
+    carta = random.choice(cartas)
+    carta_nome = carta[0]
+    valor_carta = carta[1]
+    print(carta_nome)
     return valor_carta
 
+def iniciar_jogo(cartas):
+    print("Cartas do Usuario: ")
+    carta_1 = escolher_carta(cartas)
+    carta_2 = escolher_carta(cartas)
+    cartas_usuario = carta_1 + carta_2
+    print(f"Total: {cartas_usuario}")
 
-def mostrar_cartas_usuario(usuario_cartas_n):
-    print(f"Usuario: {usuario_cartas_n}")
-
-def mostrar_cartas_dealer(dealer_cartas_n):
-    print(f"Dealer: {dealer_cartas_n}") 
-    
-
-def menu_escolha():
-    escolha = input("Deseja adicionar uma carta? (s/n)").lower()
-
-    if escolha == 's':
-        pass
-    elif escolha == 'n':
-        pass
-    else: 
-        print("Escolha invalida")
-        menu_escolha()
-
-def adicionar_carta(cartas):
-    carta = escolher_carta(cartas)
+    print("\nCartas do Dealer: ")
+    carta_dealer_1 = escolher_carta(cartas)
+    carta_dealer_2 = escolher_carta(cartas)
+    cartas_dealer = carta_dealer_1 + carta_dealer_2
+    print(f"Total: {cartas_dealer}")
 
 
 
-# def somar_carta
-iniciar_jogo()
+    escolha_menu()
+    print("teste jogo")
+
+def escolha_menu():
+    print("teste escolha")
+
+
+iniciar_jogo(cartas)
