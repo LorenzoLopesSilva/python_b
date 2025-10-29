@@ -1,4 +1,16 @@
 import random
+import sys
+import time
+import os
+
+def espera():
+    time.sleep(1000)
+
+def sair():
+    sys.exit()
+
+def apagar():
+    os.system('cls')
 
 def escolher_carta():
 
@@ -69,10 +81,9 @@ def escolher_carta():
     carta_nome = carta[0]
     valor_carta = carta[1]
     cartas.pop(cartas.index(carta))
-
     print(carta_nome)
+    time.sleep(1)
     return valor_carta
-
 
 def iniciar_menu():
     escolha_iniciar = int(input("Digite sua escolha: " \
@@ -88,25 +99,38 @@ def iniciar_menu():
         print("Escolha invalida")
         iniciar_menu()
     
+def iniciar_jogo(vidas = 3):
 
-def iniciar_jogo():
+    vidas = vidas
+
+
+    print(f"Você tem {vidas} vidas.")
 
     cartas_usuario = escolha_menu()
-    print(f"Total do usuario: {cartas_usuario}")
-
-    cartas_dealer = escolha_dealer(cartas_usuario)
     
+    if cartas_usuario == None:
+        vidas -= 1
+        continuar(vidas)
+    else: 
+        print(f"Total do usuario: {cartas_usuario}")
+        cartas_dealer = escolha_dealer(cartas_usuario)
+        if cartas_dealer == None:
+            continuar(vidas)
+        elif cartas_usuario < cartas_dealer:
+            vidas -= 1
+            continuar(vidas)
 
 def escolha_menu():
 
     print("Cartas do Usuario: ")
     carta_1 = escolher_carta()
+    
     carta_2 = escolher_carta()
     cartas_usuario = carta_1 + carta_2
     print(f"Total: {cartas_usuario}")
 
     while True:
-        if cartas_usuario < 21:
+        if cartas_usuario <= 21:
             escolha = input("\nDeseja adicionar uma carta? (s/n): ").lower()
             if escolha == "s":
                 carta = escolher_carta()
@@ -121,32 +145,58 @@ def escolha_menu():
                 print("Escolha invalida")
                 continue
         else:
-            derrota()
-            
-
+            derrota("Dealer")
+            break
+         
 def escolha_dealer(cartas_usuario):
     print("\nCartas do Dealer: ")
     carta_1 = escolher_carta()
     carta_2 = escolher_carta()
 
     cartas_dealer = carta_1 + carta_2
-    print(f"Total: {cartas_dealer}\n")
+    print(f"Total do Dealer: {cartas_dealer}\n")
 
     while True:
-        if cartas_dealer < cartas_usuario:
-            carta = escolher_carta()
-            cartas_dealer += carta
-            print(f"Total: {cartas_dealer}")
+        if cartas_dealer <= 21:
+            if cartas_dealer < cartas_usuario:
+                carta = escolher_carta()
+                cartas_dealer += carta
+                print(f"Total: {cartas_dealer}")
+            elif cartas_dealer == cartas_usuario:
+                print("Empate")
+            else:
+                print("Dealer Venceu!")
+                return cartas_dealer
+            
         else:
-            return cartas_dealer
+            derrota("Usuario")
+            break
 
-def estourou(total):
-    if total > 21:
-        print("Estourou")
-        return total
+def derrota(vencedor):
+    print(f"\nEstourou \n{vencedor} venceu!")
 
-def derrota():
-    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-    return exit
+def continuar(vidas):
 
-iniciar_jogo()
+    verificar_vidas(vidas)
+
+    print(f"\nVocê tem {vidas} vidas.")
+    escolha = input("Deseja continuar? (s/n): ").lower()
+    if escolha == "s":
+        apagar()
+        iniciar_jogo(vidas)
+    elif escolha == "n":
+        apagar()
+        print("Obrigado por jogar!")
+        sair()
+    else:
+        apagar()
+        print("Escolha invalida")
+        continuar(vidas)
+
+def verificar_vidas(vidas):
+    if vidas <= 0:
+        apagar()
+        print("Suas vidas acabaram...")
+        sair()
+
+iniciar_menu()
