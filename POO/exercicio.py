@@ -7,6 +7,9 @@ class TV:
         self.tela = tela
         self.voltagem = voltagem
         self.ligado = ligado
+        self.canais = canais
+        self.canal_atual = 0
+    
     
     def power(self):
         if self.ligado:
@@ -14,7 +17,16 @@ class TV:
             self.ligado = False
         else:
             print("A TV foi ligada")
+            canal = self.canais[self.canal_atual][1]
+
+            print(f"Canal atual: {canal}")
             self.ligado = True
+
+    def canal_next(self):
+        self.canal_atual += 1
+        canal = self.canais[self.canal_atual][1]
+
+        print(f"Canal atual: {canal}")
     
 canaisSP = [
     (4, "Band"),
@@ -28,3 +40,6 @@ tv_suprema = TV("Samsung", "STV8000 2025", 80.0, "UHD", 110, canaisSP)
 
 tv_suprema.power()
 tv_suprema.power()
+
+tv_suprema.canal_next()
+tv_suprema.canal_next()
