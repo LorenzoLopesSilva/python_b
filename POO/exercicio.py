@@ -21,13 +21,37 @@ class TV:
 
             print(f"Canal atual: {canal}")
             self.ligado = True
+ 
 
     def canal_next(self):
-        self.canal_atual += 1
-        canal = self.canais[self.canal_atual][1]
+        if self.ligado:
+            if self.canal_atual + 1 >= len(self.canais):
+                self.canal_atual = 0
+            else:
+                self.canal_atual += 1
+            
+            canal = self.canais[self.canal_atual][1]
 
-        print(f"Canal atual: {canal}")
-    
+            print(f"\nCanal atual: {canal}")
+        
+        else:
+            return "TV desligada"
+        
+    def canal_back(self):
+        if self.ligado:
+            if self.canal_atual - 1 < 0:
+                self.canal_atual = len(self.canais) - 1
+            else:
+                self.canais -= 1
+            
+            canal = self.canais[self.canal_atual][1]
+            
+            print(f"\nCanal atual: {canal}")
+        else:
+            return "TV desligada"
+
+
+        
 canaisSP = [
     (4, "Band"),
     (6, "Record"),
@@ -39,7 +63,14 @@ canaisSP = [
 tv_suprema = TV("Samsung", "STV8000 2025", 80.0, "UHD", 110, canaisSP)
 
 tv_suprema.power()
-tv_suprema.power()
+
+
+tv_suprema.canal_back()
+
 
 tv_suprema.canal_next()
+tv_suprema.canal_next()
+
+tv_suprema.power()
+
 tv_suprema.canal_next()
